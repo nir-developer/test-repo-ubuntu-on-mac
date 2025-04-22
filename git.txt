@@ -1,0 +1,77 @@
+
+📌 Steps to Connect Local Git to GitHub
+✅ 1. Check if Git is installed
+Open a terminal in your Ubuntu VM:
+
+
+git --version
+If it’s not installed:
+
+
+sudo apt update
+sudo apt install git
+✅ 2. Configure Git with your GitHub credentials
+In your Ubuntu terminal:
+
+
+
+git config --global user.name "nir"
+git config --global user.email "nir100.developer@gmail.com"
+You can check it later with:
+
+
+git config --list
+✅ 3. Generate an SSH key (if you haven’t already)
+Check for existing SSH keys:
+
+
+ls -al ~/.ssh
+If you don’t have id_rsa and id_rsa.pub files, generate one:
+
+
+ssh-keygen -t ed25519 -C "your-email@example.com"
+Press Enter for the default save location, and optionally add a passphrase.
+
+✅ 4. Add your SSH key to the ssh-agent
+Start the ssh-agent:
+
+
+eval "$(ssh-agent -s)"
+Then add your SSH private key:
+
+
+ssh-add ~/.ssh/id_ed25519
+✅ 5. Add the public SSH key to your GitHub account
+Copy the public key to your clipboard:
+
+
+cat ~/.ssh/id_ed25519.pub
+Copy the entire output.
+
+Then:
+
+Go to GitHub → Settings → SSH and GPG keys
+
+Click New SSH key
+
+Paste the public key there, give it a title, and save.
+
+✅ 6. Test the SSH connection
+Run:
+
+
+ssh -T git@github.com
+If successful, you’ll see:
+
+rust
+Copy
+Edit
+Hi your-username! You've successfully authenticated...
+✅ 7. Clone / push / pull repositories using SSH URLs
+When working with repos, use the SSH URL, like:
+
+
+git@github.com:your-username/your-repo.git
+✅ That’s it — your Ubuntu VM should now be able to interact with your GitHub account via SSH!
+
+
